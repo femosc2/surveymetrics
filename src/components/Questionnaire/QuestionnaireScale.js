@@ -1,76 +1,62 @@
-import React, { Component } from 'react'
-import QuestionnaireTextarea from './QuestionnaireTextarea';
+import React from 'react';
 import styled, {css} from "styled-components"
 
-class QuestionnaireRadioButton extends Component {
+class QuestionnaireScale extends React.Component {
     constructor(props) {
         super(props);
-        let amountOfOptions;
+        this.state = {
+            value: ''
+        };
+
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+
         this.question = props.question
         this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
-            amountOfOptions: props.numberOfQuestions,
-            options: [
-                {
+            options: [{
                     answerOption: 0,
-                    answer: props.answer1
+                    answer: 0
                 },
                 {
                     answerOption: 1,
-                    answer: props.answer2
+                    answer: 1
                 },
                 {
                     answerOption: 2,
-                    answer: props.answer3
+                    answer: 2
                 },
                 {
                     answerOption: 3,
-                    answer: props.answer4
+                    answer: 3
                 },
                 {
                     answerOption: 4,
-                    answer: props.answer5
+                    answer: 4
                 },
                 {
                     answerOption: 5,
-                    answer: props.answer6
+                    answer: 5
                 },
-                {
-                    answerOption: 6,
-                    answer: props.answer7
-                },
-                {
-                    answerOption: 7,
-                    answer: props.answer8
-                },
-                {
-                    answerOption: 8,
-                    answer: props.answer9
-                },
-                {
-                    answerOption: 9,
-                    answer: props.answer10
-                },
-                
-        ],
-        checkedOption: "",
+            ],
+            checkedOption: "",
         }
     }
-
-    
 
     handleSubmit(event) {
         alert(this.state.value + " was submitted as an answer to question ")
         event.preventDefault();
-        
+
     }
 
     handleChange = (changeEvent) => {
-       this.setState({
-           checkedOption: changeEvent.target.value
-       })
-       console.log(this.state.checkedOption)
+        this.setState({
+            checkedOption: changeEvent.target.value
+        })
+        console.log(this.state.checkedOption)
     }
+
+    
 
     render() {
         const Checkbox = ({ className, checked, ...props }) => (
@@ -85,6 +71,7 @@ class QuestionnaireRadioButton extends Component {
           )
 
         const CheckboxList = styled.ul`
+        display: inline-block;
         margin: 0 auto;
         `
 
@@ -99,7 +86,6 @@ class QuestionnaireRadioButton extends Component {
         position: absolute;
         white-space: nowrap;
         width: 1px;
-        transition: 1s;
         `
 
         const StyledCheckbox = styled.div`
@@ -121,12 +107,13 @@ class QuestionnaireRadioButton extends Component {
 
         const Icon = styled.svg`
         fill: none;
-        stroke: #fff
+        stroke: white;
         stroke-width: 2px;
         margin-bottom: 10px;
-        transition: 1s;
         `
 
+
+        
         const answers = this.state.options.map((option, index) => {
             if (option.answer != null) {
             return (
@@ -135,6 +122,7 @@ class QuestionnaireRadioButton extends Component {
                         <Checkbox value={option.answerOption} onChange={this.handleChange} 
                         checked={this.state.checkedOption == option.answerOption}
                          />
+                         <br />
                         { option.answer }
                     </label>
                 </CheckboxList>
@@ -149,4 +137,4 @@ class QuestionnaireRadioButton extends Component {
         )}
     }
 
-export default QuestionnaireRadioButton
+    export default QuestionnaireScale
